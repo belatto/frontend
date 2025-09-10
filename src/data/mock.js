@@ -340,18 +340,21 @@ export const skills = {
 
 export const education = {
   'pt-BR': [
+    'Pós-graduação em Engenharia da Computaçao - Universidade Pitágoras Unopar (2024)',
     'Pós-graduação em Engenharia de Software - Universidade Pitágoras Unopar (2024)',
     'Especialização em Sistemas Web - UEM (2009-2010)',
     'Processamento de Dados - ESEEI (2001-2003)',
     'Web Programming with Python and Javascript - Harvard University (2024)'
   ],
   'en': [
+    'Post-graduate in Computer Engineering - Universidade Pitágoras Unopar (2024)',
     'Post-graduate in Software Engineering - Universidade Pitágoras Unopar (2024)',
     'Specialization in Web Systems - UEM (2009-2010)', 
     'Data Processing - ESEEI (2001-2003)',
     'Web Programming with Python and Javascript - Harvard University (2024)'
   ],
   'it': [
+    'Post laurea ingegneria informatica - Universidade Pitágoras Unopar (2024)',
     'Post laurea ingegneria software - Universidade Pitágoras Unopar (2024)',
     'Specializzazione in sistemi web - UEM (2009-2010)',
     'Processamenti di dati - ESEEI (2001-2003)',
