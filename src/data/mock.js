@@ -231,7 +231,7 @@ export const experiences = [
     company: 'Sysmap (Claro)',
     logo: 'https://logo.clearbit.com/claro.com.br',
     role: 'Desenvolvedor Java Senior',
-    period: '4 ano 6 meses',
+    period: '4 anos 6 meses',
     location: 'São Paulo, Brasil',
     project: 'Sistema de Vendas Telecom',
     description: {
@@ -256,7 +256,7 @@ export const experiences = [
     company: 'Ipse Docet Srl',
     logo: 'https://logo.clearbit.com/ipse-docet.it',
     role: 'Systems Analyst - Java',
-    period: '3 meses',
+    period: '3 anos',
     location: 'Torino / Bologna, Italia',
     project: 'Sistemas para Administração Pública',
     description: {
