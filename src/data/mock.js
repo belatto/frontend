@@ -134,7 +134,7 @@ export const experiences = [
     company: 'Commit',
     logo: 'https://logo.clearbit.com/commit.it',
     role: 'Systems Analyst - Java',
-    period: '7 anos 2 meses',
+    period: '4 anos 3 meses',
     location: 'Torino, Italia',
     project: 'Projetos Bancários e Healthcare',
     hasSubProjects: true,
@@ -165,7 +165,7 @@ export const experiences = [
         id: 'commit-teleconsys',
         client: 'Teleconsys',
         project: 'Sistema de Assistência para Idosos',
-        duration: '2 anos 11 meses',
+        duration: '1 ano e 3 meses',
         description: {
           'pt-BR': 'Desenvolvimento de aplicação web e plugins para sistema de assistência a idosos, comunicação entre diversas plataformas: e-commerce, inteligência artificial, serviços de assistência domiciliar',
           'en': 'Development of web applications and plugins for elderly assistance system, communication between various platforms: e-commerce, artificial intelligence, home care services',
@@ -231,7 +231,7 @@ export const experiences = [
     company: 'Sysmap (Claro)',
     logo: 'https://logo.clearbit.com/claro.com.br',
     role: 'Desenvolvedor Java Senior',
-    period: '1 ano 2 meses',
+    period: '4 ano 6 meses',
     location: 'São Paulo, Brasil',
     project: 'Sistema de Vendas Telecom',
     description: {
