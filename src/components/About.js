@@ -1,9 +1,10 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Code, Database, Server, GitBranch } from 'lucide-react';
+import { education, languages as languageData } from '../data/mock';
+import { Code, Database, Server, GitBranch, GraduationCap, Languages } from 'lucide-react';
 
 const About = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
 
   const highlights = [
     {
@@ -26,20 +27,20 @@ const About = () => {
     },
     {
       icon: <Server className="text-lime-400" size={32} />,
+      title: "Enterprise",
+      subtitle: {
+        'pt-BR': 'Sistemas',
+        'en': 'Systems',
+        'it': 'Sistemi'
+      }
+    },
+    {
+      icon: <GitBranch className="text-lime-400" size={32} />,
       title: "Microservices",
       subtitle: {
         'pt-BR': 'Arquitetura',
         'en': 'Architecture',
         'it': 'Architettura'
-      }
-    },
-    {
-      icon: <GitBranch className="text-lime-400" size={32} />,
-      title: "CI/CD",
-      subtitle: {
-        'pt-BR': 'Integração',
-        'en': 'Integration',
-        'it': 'Integrazione'
       }
     }
   ];
@@ -55,7 +56,7 @@ const About = () => {
           <div className="w-24 h-1 bg-lime-400 mx-auto"></div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left Column - Description */}
           <div className="space-y-8">
             <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
@@ -74,19 +75,41 @@ const About = () => {
 
             {/* Education */}
             <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-lime-400 mb-4 uppercase tracking-wide">
-                Formação
-              </h3>
+              <div className="flex items-center space-x-3 mb-4">
+                <GraduationCap className="text-lime-400" size={24} />
+                <h3 className="text-xl font-bold text-lime-400 uppercase tracking-wide">
+                  Formação
+                </h3>
+              </div>
               <ul className="space-y-3">
-                <li className="text-gray-300 flex items-center">
-                  <div className="w-2 h-2 bg-lime-400 rounded-full mr-4"></div>
-                  Pós-graduação em Engenharia de Software
-                </li>
-                <li className="text-gray-300 flex items-center">
-                  <div className="w-2 h-2 bg-lime-400 rounded-full mr-4"></div>
-                  Pós-graduação em Engenharia da Computação
-                </li>
+                {education[currentLanguage]?.map((edu, index) => (
+                  <li key={index} className="text-gray-300 flex items-start">
+                    <div className="w-2 h-2 bg-lime-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                    <span className="text-sm leading-relaxed">{edu}</span>
+                  </li>
+                ))}
               </ul>
+            </div>
+
+            {/* Languages */}
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+              <div className="flex items-center space-x-3 mb-4">
+                <Languages className="text-lime-400" size={24} />
+                <h3 className="text-xl font-bold text-lime-400 uppercase tracking-wide">
+                  Idiomas
+                </h3>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {languageData[currentLanguage]?.map((lang, index) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <span className="text-2xl">{lang.flag}</span>
+                    <div>
+                      <p className="text-white font-medium">{lang.language}</p>
+                      <p className="text-gray-400 text-sm">{lang.level}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -104,7 +127,7 @@ const About = () => {
                   {highlight.title}
                 </h3>
                 <p className="text-gray-400 font-medium uppercase tracking-wide text-sm">
-                  {highlight.subtitle['pt-BR']}
+                  {highlight.subtitle[currentLanguage] || highlight.subtitle['pt-BR']}
                 </p>
               </div>
             ))}

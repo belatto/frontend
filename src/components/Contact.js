@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Mail, Send, Linkedin, Github, MapPin, Phone, CheckCircle, AlertCircle } from 'lucide-react';
-import { contactAPI } from '../services/api';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,6 +13,13 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
+
+  // 📧 CONFIGURAÇÃO EMAILJS - SUBSTITUA PELAS SUAS CHAVES!
+  const EMAILJS_CONFIG = {
+    PUBLIC_KEY: 'pk_1234567890', // ← Substitua pela sua Public Key
+    SERVICE_ID: 'service_abc123', // ← Substitua pelo seu Service ID
+    TEMPLATE_ID: 'template_xyz789' // ← Substitua pelo seu Template ID
+  };
 
   const handleInputChange = (e) => {
     setFormData({
@@ -27,24 +34,38 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      const messageData = {
-        ...formData,
-        language: 'pt-BR' // Will be updated with language context later
+      // 📧 PREPARAR DADOS PARA EMAILJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        company: formData.company || 'Não informado',
+        message: formData.message,
+        language: currentLanguage,
+        to_name: 'João Paulo Belatto',
+        reply_to: formData.email
       };
 
-      await contactAPI.sendMessage(messageData);
+      // 📧 ENVIAR EMAIL VIA EMAILJS
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+
+      console.log('✅ Email enviado com sucesso!', response.status, response.text);
       
       setSubmitStatus('success');
       setFormData({ name: '', email: '', company: '', message: '' });
       
-      // Hide success message after 5 seconds
+      // Esconder mensagem após 5 segundos
       setTimeout(() => setSubmitStatus(null), 5000);
       
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('❌ Erro ao enviar email:', error);
       setSubmitStatus('error');
       
-      // Hide error message after 5 seconds
+      // Esconder mensagem após 5 segundos
       setTimeout(() => setSubmitStatus(null), 5000);
     } finally {
       setIsSubmitting(false);
@@ -89,7 +110,7 @@ const Contact = () => {
                   <Mail className="text-lime-400" size={24} />
                   <div>
                     <p className="text-white font-semibold">Email</p>
-                    <p className="text-gray-400">jpaulo@belatto.it</p>
+                    <p className="text-gray-400">joao.belatto@email.com</p>
                   </div>
                 </div>
                 
@@ -97,7 +118,7 @@ const Contact = () => {
                   <Phone className="text-lime-400" size={24} />
                   <div>
                     <p className="text-white font-semibold">Telefone</p>
-                    <p className="text-gray-400">+39 366 9818 490</p>
+                    <p className="text-gray-400">+39 XXX XXX XXXX</p>
                   </div>
                 </div>
               </div>
@@ -133,14 +154,20 @@ const Contact = () => {
             {submitStatus === 'success' && (
               <div className="mb-6 p-4 bg-green-900/50 border border-green-700 rounded-lg flex items-center space-x-3">
                 <CheckCircle className="text-green-400" size={20} />
-                <p className="text-green-300">Mensagem enviada com sucesso! Entrarei em contato em breve.</p>
+                <div>
+                  <p className="text-green-300 font-semibold">✅ Email enviado com sucesso!</p>
+                  <p className="text-green-400 text-sm">Entrarei em contato em breve. Verifique seu email para confirmação.</p>
+                </div>
               </div>
             )}
             
             {submitStatus === 'error' && (
               <div className="mb-6 p-4 bg-red-900/50 border border-red-700 rounded-lg flex items-center space-x-3">
                 <AlertCircle className="text-red-400" size={20} />
-                <p className="text-red-300">Erro ao enviar mensagem. Tente novamente.</p>
+                <div>
+                  <p className="text-red-300 font-semibold">❌ Erro ao enviar email</p>
+                  <p className="text-red-400 text-sm">Tente novamente ou envie direto para: joao.belatto@email.com</p>
+                </div>
               </div>
             )}
             
